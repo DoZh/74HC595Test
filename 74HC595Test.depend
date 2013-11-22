@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1385034842 source:/Users/skyblue/Documents/CodeBlocks/74HC595Test/fuse.c
+	<avr/io.h>
+
+1385092358 source:/Users/skyblue/Documents/CodeBlocks/74HC595Test/main.c
+	<avr/io.h>
+	<avr/delay.h>
+

@@ -3,29 +3,29 @@ bin/Debug/74HC595Test.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00000168  000001fc  2**0
+  0 .data         00000000  00800100  00000174  00000208  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000168  00000000  00000000  00000094  2**1
+  1 .text         00000174  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .fuse         00000003  00820000  00820000  000001fc  2**0
+  2 .fuse         00000003  00820000  00820000  00000208  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .stab         000006cc  00000000  00000000  00000200  2**2
+  3 .stab         000006cc  00000000  00000000  0000020c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000081  00000000  00000000  000008cc  2**0
+  4 .stabstr      00000081  00000000  00000000  000008d8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000080  00000000  00000000  00000950  2**3
+  5 .debug_aranges 00000080  00000000  00000000  00000960  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000003fd  00000000  00000000  000009d0  2**0
+  6 .debug_info   000003fd  00000000  00000000  000009e0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000187  00000000  00000000  00000dcd  2**0
+  7 .debug_abbrev 00000187  00000000  00000000  00000ddd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000246  00000000  00000000  00000f54  2**0
+  8 .debug_line   00000249  00000000  00000000  00000f64  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000094  00000000  00000000  0000119c  2**2
+  9 .debug_frame  00000094  00000000  00000000  000011b0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000000da  00000000  00000000  00001230  2**0
+ 10 .debug_str    000000da  00000000  00000000  00001244  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000106  00000000  00000000  0000130a  2**0
+ 11 .debug_loc    00000106  00000000  00000000  0000131e  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -70,7 +70,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	e8 e6       	ldi	r30, 0x68	; 104
+  7a:	e4 e7       	ldi	r30, 0x74	; 116
   7c:	f1 e0       	ldi	r31, 0x01	; 1
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -93,7 +93,7 @@ Disassembly of section .text:
   96:	b1 07       	cpc	r27, r17
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 53 00 	call	0xa6	; 0xa6 <main>
-  9e:	0c 94 b2 00 	jmp	0x164	; 0x164 <_exit>
+  9e:	0c 94 b8 00 	jmp	0x170	; 0x170 <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -110,7 +110,7 @@ int main(void)
   aa:	cd b7       	in	r28, 0x3d	; 61
   ac:	de b7       	in	r29, 0x3e	; 62
     SPI_MasterInit();
-  ae:	88 e6       	ldi	r24, 0x68	; 104
+  ae:	82 e6       	ldi	r24, 0x62	; 98
   b0:	90 e0       	ldi	r25, 0x00	; 0
   b2:	fc 01       	movw	r30, r24
   b4:	09 95       	icall
@@ -118,143 +118,147 @@ int main(void)
 
     // Insert code
 
-    SPI595Out(0x5a);
-  b6:	23 e9       	ldi	r18, 0x93	; 147
+    SPI595Out(0xdd);
+  b6:	2d e8       	ldi	r18, 0x8D	; 141
   b8:	30 e0       	ldi	r19, 0x00	; 0
-  ba:	8a e5       	ldi	r24, 0x5A	; 90
+  ba:	8d ed       	ldi	r24, 0xDD	; 221
   bc:	90 e0       	ldi	r25, 0x00	; 0
   be:	f9 01       	movw	r30, r18
   c0:	09 95       	icall
-    SPI595Out(0x5a);
-  c2:	23 e9       	ldi	r18, 0x93	; 147
-  c4:	30 e0       	ldi	r19, 0x00	; 0
-  c6:	8a e5       	ldi	r24, 0x5A	; 90
-  c8:	90 e0       	ldi	r25, 0x00	; 0
-  ca:	f9 01       	movw	r30, r18
-  cc:	09 95       	icall
 
     while(1)
     {
-        //SPI595Out(0x55);
+    //    SPI595Out(0x04);
         //PORTB=~PORTB;
     }
-  ce:	ff cf       	rjmp	.-2      	; 0xce <main+0x28>
+  c2:	ff cf       	rjmp	.-2      	; 0xc2 <main+0x1c>
 
-000000d0 <SPI_MasterInit>:
+000000c4 <SPI_MasterInit>:
 }
 
 
 
 void SPI_MasterInit(void)
 {
-  d0:	cf 93       	push	r28
-  d2:	df 93       	push	r29
-  d4:	cd b7       	in	r28, 0x3d	; 61
-  d6:	de b7       	in	r29, 0x3e	; 62
+  c4:	cf 93       	push	r28
+  c6:	df 93       	push	r29
+  c8:	cd b7       	in	r28, 0x3d	; 61
+  ca:	de b7       	in	r29, 0x3e	; 62
 	/*设置SS,MOSI和SCK为输出，其他为输入*/
-	DDRB |= (1<<PB3)|(1<<PB5)|(1<<PB2);
-  d8:	84 e2       	ldi	r24, 0x24	; 36
-  da:	90 e0       	ldi	r25, 0x00	; 0
-  dc:	24 e2       	ldi	r18, 0x24	; 36
-  de:	30 e0       	ldi	r19, 0x00	; 0
-  e0:	f9 01       	movw	r30, r18
-  e2:	20 81       	ld	r18, Z
-  e4:	2c 62       	ori	r18, 0x2C	; 44
-  e6:	fc 01       	movw	r30, r24
-  e8:	20 83       	st	Z, r18
+	DDRB |= (1<<PB3)|(1<<PB5)|(1<<PB0)|(1<<PB2);;
+  cc:	84 e2       	ldi	r24, 0x24	; 36
+  ce:	90 e0       	ldi	r25, 0x00	; 0
+  d0:	24 e2       	ldi	r18, 0x24	; 36
+  d2:	30 e0       	ldi	r19, 0x00	; 0
+  d4:	f9 01       	movw	r30, r18
+  d6:	20 81       	ld	r18, Z
+  d8:	2d 62       	ori	r18, 0x2D	; 45
+  da:	fc 01       	movw	r30, r24
+  dc:	20 83       	st	Z, r18
 	//PORTB &= ~(1<<PB2);
 	/* SPI主机，fck/4 .模式0*/
-	SPCR = (1<<SPE)|(1<<MSTR)|(0<<SPR0)|(0<<SPR1)|(0<<CPOL)|(0<<CPHA);
-  ea:	8c e4       	ldi	r24, 0x4C	; 76
-  ec:	90 e0       	ldi	r25, 0x00	; 0
-  ee:	20 e5       	ldi	r18, 0x50	; 80
-  f0:	fc 01       	movw	r30, r24
-  f2:	20 83       	st	Z, r18
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0)|(1<<SPR1)|(0<<CPOL)|(0<<CPHA);
+  de:	8c e4       	ldi	r24, 0x4C	; 76
+  e0:	90 e0       	ldi	r25, 0x00	; 0
+  e2:	23 e5       	ldi	r18, 0x53	; 83
+  e4:	fc 01       	movw	r30, r24
+  e6:	20 83       	st	Z, r18
 }
-  f4:	df 91       	pop	r29
-  f6:	cf 91       	pop	r28
-  f8:	08 95       	ret
+  e8:	df 91       	pop	r29
+  ea:	cf 91       	pop	r28
+  ec:	08 95       	ret
 
-000000fa <SPI_MasterTransmit>:
+000000ee <SPI_MasterTransmit>:
 
 void SPI_MasterTransmit(char cData)
 {
-  fa:	cf 93       	push	r28
-  fc:	df 93       	push	r29
-  fe:	0f 92       	push	r0
- 100:	cd b7       	in	r28, 0x3d	; 61
- 102:	de b7       	in	r29, 0x3e	; 62
- 104:	89 83       	std	Y+1, r24	; 0x01
+  ee:	cf 93       	push	r28
+  f0:	df 93       	push	r29
+  f2:	0f 92       	push	r0
+  f4:	cd b7       	in	r28, 0x3d	; 61
+  f6:	de b7       	in	r29, 0x3e	; 62
+  f8:	89 83       	std	Y+1, r24	; 0x01
 	/* 启动数据传输*/
 	SPDR = cData;
- 106:	8e e4       	ldi	r24, 0x4E	; 78
- 108:	90 e0       	ldi	r25, 0x00	; 0
- 10a:	29 81       	ldd	r18, Y+1	; 0x01
- 10c:	fc 01       	movw	r30, r24
- 10e:	20 83       	st	Z, r18
+  fa:	8e e4       	ldi	r24, 0x4E	; 78
+  fc:	90 e0       	ldi	r25, 0x00	; 0
+  fe:	29 81       	ldd	r18, Y+1	; 0x01
+ 100:	fc 01       	movw	r30, r24
+ 102:	20 83       	st	Z, r18
 	/* 等待传输结束*/
 	while(!(SPSR & (1<<SPIF)))
- 110:	00 00       	nop
- 112:	8d e4       	ldi	r24, 0x4D	; 77
- 114:	90 e0       	ldi	r25, 0x00	; 0
- 116:	fc 01       	movw	r30, r24
- 118:	80 81       	ld	r24, Z
- 11a:	88 23       	and	r24, r24
- 11c:	d4 f7       	brge	.-12     	; 0x112 <SPI_MasterTransmit+0x18>
+ 104:	00 00       	nop
+ 106:	8d e4       	ldi	r24, 0x4D	; 77
+ 108:	90 e0       	ldi	r25, 0x00	; 0
+ 10a:	fc 01       	movw	r30, r24
+ 10c:	80 81       	ld	r24, Z
+ 10e:	88 23       	and	r24, r24
+ 110:	d4 f7       	brge	.-12     	; 0x106 <SPI_MasterTransmit+0x18>
         ;
 }
- 11e:	0f 90       	pop	r0
- 120:	df 91       	pop	r29
- 122:	cf 91       	pop	r28
- 124:	08 95       	ret
+ 112:	0f 90       	pop	r0
+ 114:	df 91       	pop	r29
+ 116:	cf 91       	pop	r28
+ 118:	08 95       	ret
 
-00000126 <SPI595Out>:
+0000011a <SPI595Out>:
 
 void SPI595Out(uint8_t i)
 
 {
- 126:	cf 93       	push	r28
- 128:	df 93       	push	r29
- 12a:	0f 92       	push	r0
- 12c:	cd b7       	in	r28, 0x3d	; 61
- 12e:	de b7       	in	r29, 0x3e	; 62
- 130:	89 83       	std	Y+1, r24	; 0x01
+ 11a:	cf 93       	push	r28
+ 11c:	df 93       	push	r29
+ 11e:	0f 92       	push	r0
+ 120:	cd b7       	in	r28, 0x3d	; 61
+ 122:	de b7       	in	r29, 0x3e	; 62
+ 124:	89 83       	std	Y+1, r24	; 0x01
 
-   PORTB&=~(1<<PB2);             //等待数据传输，595存储寄存器数据不变
- 132:	85 e2       	ldi	r24, 0x25	; 37
- 134:	90 e0       	ldi	r25, 0x00	; 0
- 136:	25 e2       	ldi	r18, 0x25	; 37
- 138:	30 e0       	ldi	r19, 0x00	; 0
- 13a:	f9 01       	movw	r30, r18
- 13c:	20 81       	ld	r18, Z
- 13e:	2b 7f       	andi	r18, 0xFB	; 251
- 140:	fc 01       	movw	r30, r24
- 142:	20 83       	st	Z, r18
+    PORTB&=~(1<<PB0);             //等待数据传输，595存储寄存器数据不变
+ 126:	85 e2       	ldi	r24, 0x25	; 37
+ 128:	90 e0       	ldi	r25, 0x00	; 0
+ 12a:	25 e2       	ldi	r18, 0x25	; 37
+ 12c:	30 e0       	ldi	r19, 0x00	; 0
+ 12e:	f9 01       	movw	r30, r18
+ 130:	20 81       	ld	r18, Z
+ 132:	2e 7f       	andi	r18, 0xFE	; 254
+ 134:	fc 01       	movw	r30, r24
+ 136:	20 83       	st	Z, r18
 
-   SPI_MasterTransmit(i);        //传输数据
- 144:	89 81       	ldd	r24, Y+1	; 0x01
- 146:	0e 94 7d 00 	call	0xfa	; 0xfa <SPI_MasterTransmit>
+    SPI_MasterTransmit(i);
+ 138:	89 81       	ldd	r24, Y+1	; 0x01
+ 13a:	0e 94 77 00 	call	0xee	; 0xee <SPI_MasterTransmit>
+    SPI_MasterTransmit(i);        //传输数据
+ 13e:	89 81       	ldd	r24, Y+1	; 0x01
+ 140:	0e 94 77 00 	call	0xee	; 0xee <SPI_MasterTransmit>
 
-
-   PORTB|=(1<<PB2);              //595移位寄存器的数据进入数据存储寄存器，并在数码管上显示
- 14a:	85 e2       	ldi	r24, 0x25	; 37
- 14c:	90 e0       	ldi	r25, 0x00	; 0
- 14e:	25 e2       	ldi	r18, 0x25	; 37
- 150:	30 e0       	ldi	r19, 0x00	; 0
- 152:	f9 01       	movw	r30, r18
- 154:	20 81       	ld	r18, Z
- 156:	24 60       	ori	r18, 0x04	; 4
- 158:	fc 01       	movw	r30, r24
- 15a:	20 83       	st	Z, r18
-
+    PORTB|=(1<<PB0);              //595移位寄存器的数据进入数据存储寄存器，并在数码管上显示
+ 144:	85 e2       	ldi	r24, 0x25	; 37
+ 146:	90 e0       	ldi	r25, 0x00	; 0
+ 148:	25 e2       	ldi	r18, 0x25	; 37
+ 14a:	30 e0       	ldi	r19, 0x00	; 0
+ 14c:	f9 01       	movw	r30, r18
+ 14e:	20 81       	ld	r18, Z
+ 150:	21 60       	ori	r18, 0x01	; 1
+ 152:	fc 01       	movw	r30, r24
+ 154:	20 83       	st	Z, r18
+    PORTB&=~(1<<PB0);
+ 156:	85 e2       	ldi	r24, 0x25	; 37
+ 158:	90 e0       	ldi	r25, 0x00	; 0
+ 15a:	25 e2       	ldi	r18, 0x25	; 37
+ 15c:	30 e0       	ldi	r19, 0x00	; 0
+ 15e:	f9 01       	movw	r30, r18
+ 160:	20 81       	ld	r18, Z
+ 162:	2e 7f       	andi	r18, 0xFE	; 254
+ 164:	fc 01       	movw	r30, r24
+ 166:	20 83       	st	Z, r18
 }
- 15c:	0f 90       	pop	r0
- 15e:	df 91       	pop	r29
- 160:	cf 91       	pop	r28
- 162:	08 95       	ret
+ 168:	0f 90       	pop	r0
+ 16a:	df 91       	pop	r29
+ 16c:	cf 91       	pop	r28
+ 16e:	08 95       	ret
 
-00000164 <_exit>:
- 164:	f8 94       	cli
+00000170 <_exit>:
+ 170:	f8 94       	cli
 
-00000166 <__stop_program>:
- 166:	ff cf       	rjmp	.-2      	; 0x166 <__stop_program>
+00000172 <__stop_program>:
+ 172:	ff cf       	rjmp	.-2      	; 0x172 <__stop_program>
